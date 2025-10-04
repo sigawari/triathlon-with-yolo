@@ -1,15 +1,19 @@
 from ultralytics import YOLO
 import cv2
+import os
 
 # Muat model
 model = YOLO("best.pt")
 
 # Skala wajib (ganti sesuai kalibrasi nyata)
-scale_cm_per_px = 0.05  # contoh: 1 px = 0.05 cm
+scale_cm_per_px = 0.261  # contoh: 1 px = 0.05 cm
+
+# Tentukan path gambar menggunakan os
+source_image_path = os.path.join("test_bike", "test5.jpeg")
 
 # Jalankan prediksi
 results = model.predict(
-    source="1.jpg",
+    source=source_image_path,
     show=False,
     save=False,
     conf=0.7,
@@ -26,7 +30,7 @@ class_map = {
 }
 
 # Baca gambar asli
-img = cv2.imread("1.jpg")
+img = cv2.imread(os.path.join("test_bike", "test5.jpeg"))
 
 for r in results:
     boxes = r.boxes.xyxy.cpu().numpy()
