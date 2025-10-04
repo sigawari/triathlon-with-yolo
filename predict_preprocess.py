@@ -10,8 +10,8 @@ model = YOLO("best.pt")
 scale_cm_per_px = None  # will be set after f_tire detection
 
 # Tentukan folder input dan output
-input_folder = "test_bike"
-output_folder = "predict_bike(no_pre)"
+input_folder = "preprocess_result"
+output_folder = "predict_preprocess"
 os.makedirs(output_folder, exist_ok=True)
 
 # Dapatkan semua path gambar
