@@ -158,6 +158,34 @@ for r in results:
             # garis vertikal sumbu crank
             cv2.line(img, (vertical_x, 0), (vertical_x, img.shape[0]), (180, 180, 255), 2)
 
+        # --- Crank ke tanah ---
+        if "crank" in bboxes and "f_tire" in bboxes:
+            x1_c, y1_c, x2_c, y2_c = bboxes["crank"]
+            crank_center = (int((x1_c + x2_c) / 2), int((y1_c + y2_c) / 2))
+
+            x1_f, y1_f, x2_f, y2_f = bboxes["f_tire"]
+            ground_y = int(max(y2_f, y2_f))  # tanah adalah bounding box bawah dari f_tire
+
+            dist_px = abs(crank_center[1] - ground_y)
+            dist_cm = dist_px * scale_cm_per_px
+            print(f"Crank->Ground: {dist_cm:.1f} cm")
+
+            cv2.line(img, crank_center, (crank_center[0], ground_y), (0, 100, 255), 4)
+            label_text = f"Crank->Ground:\n{dist_cm:.1f} cm"
+            for i, line in enumerate(label_text.split("\n")):
+                # Default (left-aligned, large font)
+                cv2.putText(img, line, (crank_center[0] + 60, crank_center[1] + 60 + i*35),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 100, 255), 3)
+                # Right-aligned, smaller font
+                font_scale = 0.7
+                thickness = 2
+                (text_width, text_height), _ = cv2.getTextSize(line, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)
+                x_right = crank_center[0] + 200  # right edge position
+                x_aligned = x_right - text_width
+                y_aligned = crank_center[1] + 60 + i*25  # smaller vertical spacing
+                cv2.putText(img, line, (x_aligned, y_aligned),
+                            cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 100, 255), thickness)
+            
         # --- Diameter ban belakang ---
         if "r_tire" in bboxes:
             x1_r, y1_r, x2_r, y2_r = bboxes["r_tire"]
