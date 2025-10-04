@@ -8,8 +8,10 @@ model = YOLO("best.pt")
 # scale_cm_per_px will be set automatically from f_tire
 scale_cm_per_px = None  # will be set after f_tire detection
 
+
 # Tentukan path gambar menggunakan os
-source_image_path = os.path.join("test_bike", "test5.jpeg")
+file_sepeda = "Emonda-Trek-Segafredo.jpg"
+source_image_path = os.path.join("test_bike", file_sepeda)
 
 # Jalankan prediksi
 results = model.predict(
@@ -30,7 +32,7 @@ class_map = {
 }
 
 # Baca gambar asli
-img = cv2.imread(os.path.join("test_bike", "test5.jpeg"))
+img = cv2.imread(os.path.join("test_bike", file_sepeda))
 
 for r in results:
     boxes = r.boxes.xyxy.cpu().numpy()
@@ -53,7 +55,8 @@ for r in results:
         width_f = abs(x2_f - x1_f)
         height_f = abs(y2_f - y1_f)
         diameter_f_px = (width_f + height_f) / 2
-        scale_cm_per_px = 67.2 / diameter_f_px  # 67.2 cm is the real diameter
+        scale_cm_per_px = 67.2 / diameter_f_px  # 672 mm itu ukuran asumsi ban road bike 700c
+        print("cm/px = ", scale_cm_per_px)
         diameter_f_cm = diameter_f_px * scale_cm_per_px
         print(f"F_tire diameter: {diameter_f_cm:.1f} cm")
 
