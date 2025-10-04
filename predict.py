@@ -104,6 +104,10 @@ for r in results:
             length_px = abs(rear - front)
             length_cm = length_px * scale_cm_per_px
             print(f"Length: {length_cm:.1f} cm")
+            if length_cm <= 185:
+                print("Length OK")
+            else:
+                print("The bike is not legal")
             cv2.line(img, (front, y_base), (rear, y_base), (0, 0, 255), 4)
             cv2.putText(img, f"Length: {length_cm:.1f} cm",
                         (front, y_base - 15),
@@ -122,6 +126,10 @@ for r in results:
             dist_px = abs(crank_center[0] - vertical_x)
             dist_cm = dist_px * scale_cm_per_px
             print(f"Crank->F_tire axis: {dist_cm:.1f} cm")
+            if dist_cm >= 54 and dist_cm <= 65:
+                print("Crank to F_Tire OK")
+            else:
+                print("The bike is not legal")
 
             cv2.line(img, crank_center, (vertical_x, crank_center[1]), (0, 165, 255), 4)
             cv2.putText(img, f"Crank->F_tire axis: {dist_cm:.1f} cm",
@@ -151,7 +159,12 @@ for r in results:
 
             dist_px = abs(saddle_front[0] - vertical_x)
             dist_cm = dist_px * scale_cm_per_px
+
             print(f"Saddle front->Crank axis: {dist_cm:.1f} cm")
+            if dist_cm <= 15 and dist_cm >= 5:
+                print("Saddle OK")
+            else:
+                print("The bike is not legal")
 
             cv2.line(img, saddle_front, (vertical_x, saddle_front[1]), (128, 0, 128), 4)
             cv2.putText(img, f"Saddle front->Crank axis: {dist_cm:.1f} cm",
@@ -160,7 +173,7 @@ for r in results:
 
             # garis vertikal sumbu crank
             cv2.line(img, (vertical_x, 0), (vertical_x, img.shape[0]), (180, 180, 255), 2)
-
+        
         # --- Crank ke tanah ---
         if "crank" in bboxes and "f_tire" in bboxes:
             x1_c, y1_c, x2_c, y2_c = bboxes["crank"]
@@ -172,6 +185,10 @@ for r in results:
             dist_px = abs(crank_center[1] - ground_y)
             dist_cm = dist_px * scale_cm_per_px
             print(f"Crank->Ground: {dist_cm:.1f} cm")
+            if dist_cm >= 24 and dist_cm <= 30:
+                print("Crank to Ground OK")
+            else:
+                print("The bike is not legal")
 
             cv2.line(img, crank_center, (crank_center[0], ground_y), (0, 100, 255), 4)
             label_text = f"Crank->Ground:\n{dist_cm:.1f} cm"
