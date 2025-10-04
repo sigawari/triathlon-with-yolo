@@ -9,7 +9,7 @@ model = YOLO("best.pt")
 scale_cm_per_px = None  # will be set after f_tire detection
 
 # Tentukan path gambar menggunakan os
-source_image_path = os.path.join("test_bike", "test2.jpg")
+source_image_path = os.path.join("test_bike", "test5.jpeg")
 
 # Jalankan prediksi
 results = model.predict(
@@ -30,7 +30,7 @@ class_map = {
 }
 
 # Baca gambar asli
-img = cv2.imread(os.path.join("test_bike", "test2.jpg"))
+img = cv2.imread(os.path.join("test_bike", "test5.jpeg"))
 
 for r in results:
     boxes = r.boxes.xyxy.cpu().numpy()
