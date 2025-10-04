@@ -2,6 +2,8 @@ from ultralytics import YOLO
 import cv2
 import os
 
+# This is predict without preprocess the image
+
 # Muat model
 model = YOLO("best.pt")
 
