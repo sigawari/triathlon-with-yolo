@@ -12,7 +12,7 @@ model = YOLO("best.pt")
 scale_cm_per_px = None  # will be set after f_tire detection
 
 # Tentukan folder input dan output
-input_folder = "test_bike"
+input_folder = "sepedaku"
 output_folder = "predict_nopreprocess"
 os.makedirs(output_folder, exist_ok=True)
 
@@ -31,6 +31,7 @@ class_map = {
 for source_image_path in image_paths:
     file_sepeda = os.path.basename(source_image_path)
     img = cv2.imread(source_image_path)
+    #img = cv2.resize(img, (800, 800))
     if img is None:
         print(f"Image not found: {source_image_path}")
         continue
@@ -38,6 +39,7 @@ for source_image_path in image_paths:
     # Jalankan prediksi
     results = model.predict(
         source=source_image_path,
+        #imgsz=720,
         show=False,
         save=False,
         conf=0.7,
@@ -66,7 +68,7 @@ for source_image_path in image_paths:
             width_f = abs(x2_f - x1_f)
             height_f = abs(y2_f - y1_f)
             diameter_f_px = (width_f + height_f) / 2
-            scale_cm_per_px = 67.2 / diameter_f_px  # 672 mm itu ukuran asumsi ban road bike 700c
+            scale_cm_per_px = 67.0 / diameter_f_px  # 670 mm itu ukuran asumsi ban road bike 700c
             print("cm/px = ", scale_cm_per_px)
             diameter_f_cm = diameter_f_px * scale_cm_per_px
             print(f"F_tire diameter: {diameter_f_cm:.1f} cm")
