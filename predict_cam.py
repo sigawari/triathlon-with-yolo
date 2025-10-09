@@ -14,6 +14,8 @@ scale_cm_per_px = None  # will be set after f_tire detection
 output_folder = "predict_camera"
 os.makedirs(output_folder, exist_ok=True)
 
+
+
 # Initialize camera
 cap = cv2.VideoCapture(1)  # 0 for default camera, change to 1, 2, etc. for other cameras
 
