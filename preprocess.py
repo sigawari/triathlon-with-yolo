@@ -33,5 +33,11 @@ resized = cv2.resize(img, (new_w, new_h))
 
 cv2.imshow("Original", img)
 cv2.imshow("Resized with Ratio", resized)
-cv2.waitKey(0)
+
+# Use loop to ensure ESC closes window (cross-platform)
+while True:
+    key = cv2.waitKey(1) & 0xFF
+    if key == 27:  # ESC key
+        break
+
 cv2.destroyAllWindows()
