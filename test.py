@@ -53,7 +53,7 @@ def process_image(img_path, model):
             break
 
 def main():
-    model = YOLO("best.pt")
+    model = YOLO("best-960.pt")
     if len(sys.argv) > 1:
         for arg in sys.argv[1:]:
             if os.path.isfile(arg):
