@@ -12,7 +12,7 @@ file_name = "test10.png"  # gambar berisi sepeda + ArUco
 aruco_image_path = os.path.join(input_folder, file_name)
 
 # Ukuran fisik sisi marker ArUco (cm) - ganti sesuai marker yang dicetak
-MARKER_LENGTH_CM = 5.
+MARKER_LENGTH_CM = 5.0
 
 # Kamus ArUco (6x6)
 ARUCO_DICT = cv2.aruco.DICT_6X6_250

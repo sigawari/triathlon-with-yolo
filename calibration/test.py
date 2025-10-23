@@ -6,8 +6,8 @@ import json
 import os
 import sys
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))           # ...\model\calibration
-ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))   # ...\model
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))           
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))  
 JSON_NAME = "camera_calibration_charuco.json"
 JSON_PATH = os.path.join(ROOT_DIR, JSON_NAME)
 

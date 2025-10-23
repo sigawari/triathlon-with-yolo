@@ -10,11 +10,11 @@ model = YOLO("best.pt")
 scale_cm_per_px = None 
 
 # Folder input/output
-input_folder = "test_bike"
+input_folder = "sepedaku"
 output_folder = "predict_nopreprocess"
 os.makedirs(output_folder, exist_ok=True)  
 
-file_sepeda = "test5.jpeg"
+file_sepeda = "sepeda_Ultramarathon.jpeg"
 source_image_path = os.path.join(input_folder, file_sepeda)
 
 # Mapping class
